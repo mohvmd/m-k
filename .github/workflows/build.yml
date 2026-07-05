@@ -1,0 +1,24 @@
+name: Build EXE
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install customtkinter pandas openpyxl Pillow rapidocr-onnxruntime pyinstaller opencv-python-headless
+      - name: Build EXE
+        run: pyinstaller --noconsole --onefile --name="mention_killer" --icon="logo.ico" --collect-all rapidocr_onnxruntime main.py
+      - name: Upload EXE
+        uses: actions/upload-artifact@v3
+        with:
+          name: mention_killer_exe
+          path: dist/
