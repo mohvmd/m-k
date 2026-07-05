@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -18,7 +18,7 @@ jobs:
       - name: Build EXE
         run: pyinstaller --noconsole --onefile --name="mention_killer" --icon="logo.ico" --collect-all rapidocr_onnxruntime main.py
       - name: Upload EXE
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: mention_killer_exe
           path: dist/
